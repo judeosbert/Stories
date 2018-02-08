@@ -16,7 +16,8 @@ import okhttp3.Response;
  */
 
 public class NetworkHelper extends AsyncTaskLoader<String> {
-    private final String SERVERIP = "http://172.16.3.165:3000/story";
+//    private final String SERVERIP = "http://172.16.3.165:3000/story";
+    private final String SERVERIP = "http://139.59.95.142:3000/story";
     private final String REQUESTFAILED = "request-failed";
     private Context mContext;
     OkHttpClient okHttpClient = new OkHttpClient();
