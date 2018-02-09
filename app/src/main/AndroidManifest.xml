@@ -10,15 +10,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NewStoryActivity" />
-        <activity android:name=".SavedStoriesActivity" />
+        <activity android:name=".NewStoryActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".SavedStoriesActivity"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
@@ -31,6 +34,11 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <provider
+            android:authorities="io.github.judeosbert.stories"
+            android:name=".data.StoryManagerProvider"
+            android:exported="false">
+        </provider>
     </application>
 
 </manifest>

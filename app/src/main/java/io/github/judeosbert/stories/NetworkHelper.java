@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -16,14 +17,18 @@ import okhttp3.Response;
  */
 
 public class NetworkHelper extends AsyncTaskLoader<String> {
-//    private final String SERVERIP = "http://172.16.3.165:3000/story";
-    private final String SERVERIP = "http://139.59.95.142:3000/story";
+    private final String SERVERIP = "http://172.16.3.165:3000/story";
+//    private final String SERVERIP = "http://139.59.95.142:3000/story";
     private final String REQUESTFAILED = "request-failed";
     private Context mContext;
-    OkHttpClient okHttpClient = new OkHttpClient();
+    OkHttpClient okHttpClient;
 
     public NetworkHelper(Context context) {
         super(context);
+        okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(60,TimeUnit.SECONDS)
+                .readTimeout(30,TimeUnit.SECONDS)
+                .build();
         mContext = context;
     }
 
@@ -31,10 +36,11 @@ public class NetworkHelper extends AsyncTaskLoader<String> {
         Request request = new Request.Builder()
                 .url(SERVERIP)
                 .build();
+
         try {
             Response response = okHttpClient.newCall(request).execute();
-//            if (response.isSuccessful())
-            return response.body().string();
+            if (response.isSuccessful())
+                return response.body().string();
 //                Log.d("reader-app",response.body().toString());
         } catch (Exception e) {
             e.printStackTrace();
